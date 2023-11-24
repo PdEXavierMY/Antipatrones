@@ -10,10 +10,14 @@ def multiplicacion(num1, num2):
     return num1 * num2
 
 def division(num1, num2):
-    if num2 != 0:
-        return num1 / num2
-    else:
-        print("No se puede dividir entre cero.")
+    try:
+        if num2 != 0:
+            return num1 / num2
+        else:
+            raise ValueError("División entre cero.")
+    except Exception as e:
+        print(f"Error: {e}")
+        return "Error: División entre cero."
 
 class CalculadoraApp:
     def __init__(self, root): # Constructor
@@ -22,7 +26,7 @@ class CalculadoraApp:
 
         # Pantalla
         self.pantalla_var = tk.StringVar()
-        pantalla = tk.Entry(root, textvariable=self.pantalla_var, font=('Arial', 18), bd=10, insertwidth=4, width=14,
+        pantalla = tk.Entry(root, textvariable=self.pantalla_var, font=('Arial', 14), bd=10, insertwidth=4, width=20,
                             justify='right')
         pantalla.grid(row=0, column=0, columnspan=4)
 
@@ -36,7 +40,7 @@ class CalculadoraApp:
         ]
 
         for (text, row, col, *options) in botones:
-            tk.Button(root, text=text, font=('Arial', 18), command=lambda t=text: self.on_button_click(t)).grid(row=row, column=col, rowspan=options[0] if options else 1, columnspan=options[1] if options else 1)
+            tk.Button(root, text=text, font=('Arial', 14), command=lambda t=text: self.on_button_click(t)).grid(row=row, column=col, rowspan=options[0] if options else 1, columnspan=options[1] if options else 1)
 
         # Diccionario para mapear operadores a funciones
         self.operadores = {
