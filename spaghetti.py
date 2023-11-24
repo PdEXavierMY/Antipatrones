@@ -15,3 +15,38 @@ def division(num1, num2):
     else:
         print("No se puede dividir entre cero.")
 
+class CalculadoraApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Calculadora")
+
+        # Pantalla
+        self.pantalla_var = tk.StringVar()
+        pantalla = tk.Entry(root, textvariable=self.pantalla_var, font=('Arial', 18), bd=10, insertwidth=4, width=14,
+                            justify='right')
+        pantalla.grid(row=0, column=0, columnspan=4)
+
+        # Botones
+        botones = [
+            ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('/', 1, 3),
+            ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
+            ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
+            ('0', 4, 0), ('C', 4, 1), ('=', 4, 2), ('+', 4, 3),
+        ]
+
+        for (text, row, col) in botones:
+            tk.Button(root, text=text, font=('Arial', 18), command=lambda t=text: self.on_button_click(t)).grid(row=row, column=col)
+
+    def on_button_click(self, text):
+        current_text = self.pantalla_var.get()
+
+        if text == 'C':
+            self.pantalla_var.set('')
+        elif text == '=':
+            try:
+                result = eval(current_text)
+                self.pantalla_var.set(result)
+            except:
+                self.pantalla_var.set('Error')
+        else:
+            self.pantalla_var.set(current_text + text)
