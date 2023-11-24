@@ -202,3 +202,6 @@ Y la interfaz queda como:
 El UML es:
 
 <img src="https://github.com/Xavitheforce/Antipatrones/blob/main/img/UML_calculadora.png">
+
+
+También se ha implementado en un django la calculadora.
