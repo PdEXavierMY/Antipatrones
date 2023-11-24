@@ -1,5 +1,7 @@
 # Antipatrones
 
+Pincha [aquí](https://github.com/Xavitheforce/Antipatrones) para dirigirte a mi repositorio.
+
 <h1>Ejercicio práctico: Identificación y refactorización de antipatrón "Spaghetti Code" en Python</h1>
 Un antipatrón de programación es un patrón que puede ser considerado una mala práctica. "Spaghetti Code" es un antipatrón que se refiere a código con una estructura de control compleja, difícil de leer y seguir, generalmente debido a múltiples saltos de control, como instrucciones GOTO, ciclos y excepciones.
 
