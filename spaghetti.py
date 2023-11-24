@@ -15,10 +15,8 @@ def division(num1, num2):
     else:
         print("No se puede dividir entre cero.")
 
-import tkinter as tk
-
 class CalculadoraApp:
-    def __init__(self, root):
+    def __init__(self, root): # Constructor
         self.root = root
         self.root.title("Calculadora")
 
@@ -40,18 +38,49 @@ class CalculadoraApp:
         for (text, row, col, *options) in botones:
             tk.Button(root, text=text, font=('Arial', 18), command=lambda t=text: self.on_button_click(t)).grid(row=row, column=col, rowspan=options[0] if options else 1, columnspan=options[1] if options else 1)
 
-    def on_button_click(self, text):
-        current_text = self.pantalla_var.get()
+        # Diccionario para mapear operadores a funciones
+        self.operadores = {
+            '+': suma,
+            '-': resta,
+            '*': multiplicacion,
+            '/': division
+        }
 
-        if text == 'C':
+        # Variables para almacenar la operación actual y los operandos
+        self.operacion_actual = ''
+        self.operando1 = None
+
+    def on_button_click(self, text):
+        if text in self.operadores:
+            # Si el texto es un operador, actualizar la operación actual y almacenar el operando
+            self.operacion_actual = text
+            self.operando1 = float(self.pantalla_var.get())
             self.pantalla_var.set('')
         elif text == '=':
             try:
-                result = eval(current_text)
-                self.pantalla_var.set(result)
+                # Obtener el segundo operando
+                operando2 = float(self.pantalla_var.get())
+                
+                # Realizar la operación usando la función correspondiente
+                resultado = self.operadores[self.operacion_actual](self.operando1, operando2)
+
+                # Mostrar el resultado en la pantalla
+                self.pantalla_var.set(resultado)
+
+                # Reiniciar las variables de operación
+                self.operacion_actual = ''
+                self.operando1 = None
             except Exception as e:
+                # Manejo de errores, muestra 'Error' en la pantalla
                 self.pantalla_var.set('Error')
+        elif text == 'C':
+            # Limpiar la pantalla y reiniciar las variables de operación
+            self.pantalla_var.set('')
+            self.operacion_actual = ''
+            self.operando1 = None
         else:
+            # Números y otros caracteres, simplemente agregan al texto actual
+            current_text = self.pantalla_var.get()
             self.pantalla_var.set(current_text + text)
 
 if __name__ == "__main__":
