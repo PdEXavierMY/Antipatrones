@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora WEB</title>
+    <style>
+        /* BEGIN: Estilos personalizados */
+        #calculadora {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1, h2 {
+            color: black;
+        }
+
+        #inputNumbers {
+            width: 300px;
+            height: 30px;
+            margin-bottom: 20px;
+        }
+
+        .seccion {
+            margin-bottom: 20px;
+        }
+
+        /* Estilos para el color de fondo y el color de texto */
+        body {
+            background-image: url("https://www.youtube.com/watch?v=jh4d4Lm6JG0"); /* Enlace al video de YouTube de Shrek */
+            background-size: cover;
+            color: white;
+        }
+
+        /* Estilos para los botones */
+        button {
+            background-color: white; /* Cambiamos el color de fondo de los botones a blanco */
+            color: camel; /* Cambiamos el color de texto de los botones a camel */
+            border: 1px solid camel; /* Agregamos un borde de 1px sólido de color camel */
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 10px; /* Hacemos los botones menos redondeados */
+        }
+
+        button:hover {
+            background-color: dodgerblue;
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
+            #inputNumbers {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #inputNumbers {
+                width: 150px;
+            }
+        }
+        #video-background {
+            position: fixed;
+            right: 0; 
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            width: auto; 
+            height: auto; 
+            z-index: -100;
+        }
+
+        #calculadora {
+            position: relative;
+            z-index: 1;
+            /* Otros estilos de la calculadora aquí */
+        }
+        /* END: Estilos personalizados */
+        
+        /* BEGIN: Estilos personalizados - Fondo de color leopardo */
+        body {
+            background-image: url("https://example.com/leopard-pattern.jpg"); /* URL de la imagen de fondo de leopardo */
+            background-size: cover;
+        }
+        /* END: Estilos personalizados - Fondo de color leopardo */
+    </style>
+</head>
+
+<body>
+    <div id="calculadora">
+
+        <h1>Calculadora WEB</h1>
+
+        <input type="text" id="inputNumbers" placeholder="Introduce números o realiza operaciones binarias">
+
+        <div id="info"></div>
+
+        <div class="seccion" id="operadores">
+            <h2>Operadores Binarios</h2>
+            <button onclick="guardarOperador('+')">+</button>
+            <button onclick="guardarOperador('-')">-</button>
+            <button onclick="guardarOperador('*')">*</button>
+            <button onclick="guardarOperador('/')">/</button>
+            <button onclick="calcularResultado('')">=</button>
+        </div>
+
+        <div class="seccion" id="operadores-exponenciales">
+            <h2>Operadores Exponenciales</h2>
+            <button onclick="calcularCuadrado()">^2</button>
+            <button onclick="calcularCubo()">^3</button>
+        </div>
+
+        <div class="seccion" id="operaciones-csv">
+            <h2>Operaciones CSV</h2>
+            <button id="sumatorio" onclick="sumatorio()">Sumatorio</button>
+            <button id="ordenar" onclick="ordenar()">Ordenar</button>
+            <button id="revertir" onclick="revertir()">Revertir</button>
+            <button id="quitar" onclick="quitar()">Quitar Último</button>
+        </div>
+
+        <div class="seccion" id="operaciones-unitarias">
+            <h2>Operaciones Unitarias</h2>
+            <button id="modulo" onclick="mod()">Módulo</button>
+            <button id="factorial" onclick="fact()">Factorial</button>
+        </div>
+
+        <script src="script.js"></script>
+        <script>
+            function guardarOperador(operador) {
+                // Lógica para guardar el operador
+                var inputNumbers = document.getElementById("inputNumbers");
+                inputNumbers.value += operador;
+            }
+
+
+            function calcularResultado(resultado) {
+                var inputNumbers = document.getElementById("inputNumbers");
+                var operacion = inputNumbers.value;
+                var resultadoFinal = eval(operacion);
+                inputNumbers.value = resultadoFinal;
+            }
+
+            function calcularCuadrado() {
+                var inputNumbers = document.getElementById("inputNumbers");
+                var numero = parseFloat(inputNumbers.value);
+                var resultado = numero * numero;
+                inputNumbers.value = resultado;
+            }
+            function calcularCubo() {
+                var inputNumbers = document.getElementById("inputNumbers");
+                var numero = parseFloat(inputNumbers.value);
+                var resultado = numero * numero * numero;
+                inputNumbers.value = resultado;
+            }
+
+            function sumatorio() {
+                var inputNumbers = document.getElementById("inputNumbers");
+                var operacion = inputNumbers.value;
+                var numeros = operacion.split(",");
+                var suma = 0;
+                for (var i = 0; i < numeros.length; i++) {
+                    suma += parseFloat(numeros[i]);
+                }
+                inputNumbers.value = suma;
+            }
+
+            function ordenar() {
+                var inputNumbers = document.getElementById("inputNumbers");
+                var operacion = inputNumbers.value;
+                var numeros = operacion.split(",");
+                var numerosOrdenados = numeros.sort(function(a, b) {
+                    return a - b;
+                });
+                var nuevaOperacion = numerosOrdenados.join(",");
+                inputNumbers.value = nuevaOperacion;
+            }
+
+            function revertir() {
+                var inputNumbers = document.getElementById("inputNumbers");
+                var operacion = inputNumbers.value;
+                var nuevaOperacion = operacion.split("").reverse().join("");
+                inputNumbers.value = nuevaOperacion;
+            }
+
+            function quitar() {
+                var inputNumbers = document.getElementById("inputNumbers");
+                var operacion = inputNumbers.value;
+                var nuevaOperacion = operacion.slice(0, -1);
+                inputNumbers.value = nuevaOperacion;
+            }
+
+            function mod() {
+                var inputNumbers = document.getElementById("inputNumbers");
+                var numero = parseFloat(inputNumbers.value);
+                var resultado = Math.abs(numero);
+                inputNumbers.value = resultado;
+            }
+
+            function fact() {
+                var inputNumbers = document.getElementById("inputNumbers");
+                var numero = parseInt(inputNumbers.value);
+                var resultado = 1;
+                
+                for (var i = 1; i <= numero; i++) {
+                    resultado *= i;
+                }
+                
+                inputNumbers.value = resultado;
+            }
+        </script>
+    </div>
+</body>
+
+</html>
